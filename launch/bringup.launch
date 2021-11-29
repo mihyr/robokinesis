@@ -1,0 +1,10 @@
+<launch>
+   <!--args-->
+   <arg name="debug" default="true" />
+
+   <!--load topic and range constants to ROS Parameter Server for core node-->
+   <rosparam command="load" file="$(find robokinesis)/config/params.yaml" />
+
+   <!--nodes-->
+   <node name="core" pkg="robokinesis" type="core" output="screen"/>
+</launch>

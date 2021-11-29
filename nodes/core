@@ -1,0 +1,58 @@
+#!/usr/bin/env python
+import rospy
+from geometry_msgs.msg import Twist, Vector3, Quaternion
+import subprocess
+
+def execute(cmd):
+	popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+	for stdout_line in iter(popen.stdout.readline, ""):
+		yield stdout_line
+	popen.stdout.close()
+	return_code = popen.wait()
+	if return_code:
+		raise subprocess.CalledProcessError(return_code, cmd)
+
+
+def main():
+	# Starts a new node
+	rospy.init_node('turtle_interpret', anonymous=True)
+	vel_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+	velocity=Twist()
+
+	#logerr msg to check if node is running
+	rospy.logerr("This is just a check for mover node, ignore me")
+	
+
+	#define ros frequency
+	freq = 100
+	hz = rospy.Rate(freq)
+	#while(True):
+
+	for value in execute(['minimu9-ahrs', '--mode', 'raw']):
+		imu_str = str(value)
+		imu_split = a_list = imu_str.split()
+		imu_map = map(float, imu_split)
+		imu_list = list(imu_map)
+
+		# rospy.loginfo('hello')
+
+		v_linear = 1
+		v_angular = 0
+		#cmd_vel loop: Update and Publish Velocity
+		velocity.linear = Vector3(v_linear,0,0)
+		velocity.angular = Vector3(0,0,v_angular)
+		vel_publisher.publish(velocity)
+		# rospy.loginfo(v_linear)
+		
+
+		rospy.loginfo(imu_list)
+		
+		#go to sleep!
+		#hz.sleep()
+
+if __name__ == "__main__":
+	try:
+		main()
+	except rospy.ROSInterruptException:
+		pass 
+
