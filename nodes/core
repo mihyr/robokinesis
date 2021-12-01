@@ -45,26 +45,44 @@ def main():
 		if ax > 0.5:
 			velocity.linear.x = 0.5
 			velocity.angular.z = 0
-			vel_publisher.publish(velocity)
+			# vel_publisher.publish(velocity)
 			# print('forward')
+		elif ax < -0.5:
+			velocity.linear.x = -0.5
+			velocity.angular.z = 0
+			# vel_publisher.publish(velocity)
+			# print('backward')
+		if az > 0.5:
+			# velocity.linear.x = 0
+			velocity.angular.z = 0.5
+			# vel_publisher.publish(velocity)
+			# print('right')
+		elif az < -0.5:
+			# velocity.linear.x = 0
+			velocity.angular.z = -0.5
+			# vel_publisher.publish(velocity)
+			# print('left')
+
 
 		# mode euler
-		yaw, pitch, roll = imu_list[0], imu_list[1], imu_list[2]
-		yaw, pitch, roll = float(yaw), float(pitch), float(roll)
+		# yaw, pitch, roll = imu_list[0], imu_list[1], imu_list[2]
+		# yaw, pitch, roll = float(yaw), float(pitch), float(roll)
 		
-		if yaw > 0:
-			velocity.linear.x = 0.5
-		elif yaw < 0:
-			velocity.linear.x = -0.5
+		# if yaw > 0:
+		# 	velocity.linear.x = 0.5
+		# elif yaw < 0:
+		# 	velocity.linear.x = -0.5
 
-		if roll > 0:
-			velocity.angular.z = 0.5
-		elif roll < 0:
-			velocity.angular.z = -0.5
+		# if roll > 0:
+		# 	velocity.angular.z = 0.5
+		# elif roll < 0:
+		# 	velocity.angular.z = -0.5
 		
-		else:
-			velocity.linear.x = 0
-			velocity.angular.z = 0
+		# else:
+		# 	velocity.linear.x = 0
+		# 	velocity.angular.z = 0
+
+
 
 		#v_linear = 1
 		#v_angular = 0
