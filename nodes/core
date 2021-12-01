@@ -79,10 +79,10 @@ def main():
 			velocity.linear.x = 0
 			# rospy.loginfo('no linear')
 		
-		if yaw < 50:
+		if 30> yaw < 50:
 			velocity.angular.z = 0.5
 			# rospy.loginfo('right')
-		elif yaw > 110:
+		elif 130> yaw > 110:
 			velocity.angular.z = -0.5
 			# rospy.loginfo('left')
 		else:
