@@ -90,7 +90,7 @@ def main():
 		# 	velocity.angular.z = 0
 		# 	# rospy.loginfo('no angular')
 
-		if -140 < roll < -70:
+		if -110 < roll < -150:
 			velocity.angular.z = 0.5
 			# rospy.loginfo('right')
 		elif 130> pitch > 50:
