@@ -24,7 +24,7 @@ def main():
 	
 
 	#define ros frequency
-	freq = 100
+	freq = 10
 	hz = rospy.Rate(freq)
 	#while(True):
 
@@ -70,20 +70,30 @@ def main():
 		yaw, pitch, roll = float(yaw), float(pitch), float(roll)
 		
 		# rospy.loginfo(str(roll))
-		if -170 < roll < -120:
+		if -170 < roll < -100:
 			velocity.linear.x = 0.5
 			# rospy.loginfo('forward')
-		elif 130 < roll < 150:
+		elif 90 < roll < 150:
 			velocity.linear.x = -0.5
 			# rospy.loginfo('backward')
 		else:
 			velocity.linear.x = 0
 			# rospy.loginfo('no linear')
 		
-		if 30< yaw < 50:
+		# if 30< yaw < 50:
+		# 	velocity.angular.z = 0.5
+		# 	# rospy.loginfo('right')
+		# elif 130> yaw > 110:
+		# 	velocity.angular.z = -0.5
+		# 	# rospy.loginfo('left')
+		# else:
+		# 	velocity.angular.z = 0
+		# 	# rospy.loginfo('no angular')
+
+		if -140 < roll < -70:
 			velocity.angular.z = 0.5
 			# rospy.loginfo('right')
-		elif 130> yaw > 110:
+		elif 130> pitch > 50:
 			velocity.angular.z = -0.5
 			# rospy.loginfo('left')
 		else:
