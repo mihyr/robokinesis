@@ -94,9 +94,9 @@ def main():
 		# elif roll < 0:
 		# 	velocity.angular.z = -0.5
 		
-		else:
-			velocity.linear.x = 0
-			velocity.angular.z = 0
+		# else:
+		# 	velocity.linear.x = 0
+		# 	velocity.angular.z = 0
 
 
 
