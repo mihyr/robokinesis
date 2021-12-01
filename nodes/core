@@ -37,26 +37,45 @@ def main():
 
 		# mode raw
 		mx,my,mz,ax,ay,az,gx,gy,gz = imu_list
-		print(type(mx))
+		# print(type(mx))
 		# mx,my,mz,ax,ay,az,gx,gy,gz = float(mx),float(my),float(mz),float(ax),float(ay),float(az),float(gx),float(gy),float(gz)
-		print(type(mx))
-		
+		# print(type(mx))
+
 		# rospy.loginfo('hello')
+		if ax > 0.5:
+			velocity.linear.x = 0.5
+			velocity.angular.z = 0
+			vel_publisher.publish(velocity)
+			# print('forward')
 
 		# mode euler
-		# yaw, pitch, roll = imu_list[0], imu_list[1], imu_list[2]
-		# yaw, pitch, roll = float(yaw), float(pitch), float(roll)
+		yaw, pitch, roll = imu_list[0], imu_list[1], imu_list[2]
+		yaw, pitch, roll = float(yaw), float(pitch), float(roll)
+		
+		if yaw > 0:
+			velocity.linear.x = 0.5
+		elif yaw < 0:
+			velocity.linear.x = -0.5
 
-		v_linear = 1
-		v_angular = 0
+		if roll > 0:
+			velocity.angular.z = 0.5
+		elif roll < 0:
+			velocity.angular.z = -0.5
+		
+		else:
+			velocity.linear.x = 0
+			velocity.angular.z = 0
+
+		#v_linear = 1
+		#v_angular = 0
 		#cmd_vel loop: Update and Publish Velocity
-		velocity.linear = Vector3(v_linear,0,0)
-		velocity.angular = Vector3(0,0,v_angular)
+		# velocity.linear = Vector3(v_linear,0,0)
+		# velocity.angular = Vector3(0,0,v_angular)
 		vel_publisher.publish(velocity)
 		# rospy.loginfo(v_linear)
 		
 
-		rospy.loginfo(imu_list)
+		# rospy.loginfo(imu_list)
 		
 		#go to sleep!
 		#hz.sleep()
