@@ -109,7 +109,7 @@ def main():
 		# rospy.loginfo(v_linear)
 		
 
-		rospy.loginfo(yaw, pitch, roll)
+		rospy.loginfo(imu_list)
 		
 		#go to sleep!
 		#hz.sleep()
