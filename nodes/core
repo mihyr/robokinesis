@@ -80,25 +80,25 @@ def main():
 			velocity.linear.x = 0
 			# rospy.loginfo('no linear')
 		
-		# if 30< yaw < 50:
-		# 	velocity.angular.z = 0.5
-		# 	# rospy.loginfo('right')git
-		# elif 130> yaw > 110:
-		# 	velocity.angular.z = -0.5
-		# 	# rospy.loginfo('left')
-		# else:
-		# 	velocity.angular.z = 0
-		# 	# rospy.loginfo('no angular')
-
-		if -150 < roll < -110:
+		if 30< yaw < 60:
 			velocity.angular.z = 0.5
-			# rospy.loginfo('right')
-		elif 130> pitch > 50:
+			# rospy.loginfo('right')git
+		elif 140> yaw > 110:
 			velocity.angular.z = -0.5
 			# rospy.loginfo('left')
 		else:
 			velocity.angular.z = 0
 			# rospy.loginfo('no angular')
+
+		# if -150 < roll < -110:
+		# 	velocity.angular.z = 0.5
+		# 	# rospy.loginfo('right')
+		# elif 130> pitch > 50:
+		# 	velocity.angular.z = -0.5
+		# 	# rospy.loginfo('left')
+		# else:
+		# 	velocity.angular.z = 0
+		# 	# rospy.loginfo('no angular')
 
 		# if roll > 0:
 		# 	velocity.angular.z = 0.5
