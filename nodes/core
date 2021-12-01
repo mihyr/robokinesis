@@ -33,8 +33,19 @@ def main():
 		imu_split = a_list = imu_str.split()
 		imu_map = map(float, imu_split)
 		imu_list = list(imu_map)
+		
 
+		# mode raw
+		mx,my,mz,ax,ay,az,gx,gy,gz = imu_list
+		print(type(mx))
+		# mx,my,mz,ax,ay,az,gx,gy,gz = float(mx),float(my),float(mz),float(ax),float(ay),float(az),float(gx),float(gy),float(gz)
+		print(type(mx))
+		
 		# rospy.loginfo('hello')
+
+		# mode euler
+		# yaw, pitch, roll = imu_list[0], imu_list[1], imu_list[2]
+		# yaw, pitch, roll = float(yaw), float(pitch), float(roll)
 
 		v_linear = 1
 		v_angular = 0

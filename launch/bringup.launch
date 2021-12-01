@@ -1,10 +1,17 @@
 <launch>
+
    <!--args-->
    <arg name="debug" default="true" />
 
    <!--load topic and range constants to ROS Parameter Server for core node-->
    <rosparam command="load" file="$(find robokinesis)/config/params.yaml" />
+   
+   <!-- <machine name="mihipi" user="pi" password="msp1298" address="192.168.1.4"  env-loader="/home/pi/ros_ws/robokinesis/src/robokinesis/loader.sh" default="true" timeout="60"/> -->
+   <!-- <group ns="mihipi">
+      <node name="core" pkg="robokinesis" type="core" output="screen"/>
+   </group> -->
 
    <!--nodes-->
    <node name="core" pkg="robokinesis" type="core" output="screen"/>
+
 </launch>
