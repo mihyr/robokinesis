@@ -43,41 +43,51 @@ def main():
 		# print(type(mx))
 
 		# rospy.loginfo('hello')
-		if ax > 0.5:
-			velocity.linear.x = 0.5
-			velocity.angular.z = 0
-			# vel_publisher.publish(velocity)
-			# print('forward')
-		elif ax < -0.5:
-			velocity.linear.x = -0.5
-			velocity.angular.z = 0
-			# vel_publisher.publish(velocity)
-			# print('backward')
-		if az > 0.5:
-			# velocity.linear.x = 0
-			velocity.angular.z = 0.5
-			# vel_publisher.publish(velocity)
-			# print('right')
-		elif az < -0.5:
-			# velocity.linear.x = 0
-			velocity.angular.z = -0.5
-			# vel_publisher.publish(velocity)
-			# print('left')
+		# if ax > 0.5:
+		# 	velocity.linear.x = 0.5
+		# 	velocity.angular.z = 0
+		# 	# vel_publisher.publish(velocity)
+		# 	# print('forward')
+		# elif ax < -0.5:
+		# 	velocity.linear.x = -0.5
+		# 	velocity.angular.z = 0
+		# 	# vel_publisher.publish(velocity)
+		# 	# print('backward')
+		# if az > 0.5:
+		# 	# velocity.linear.x = 0
+		# 	velocity.angular.z = 0.5
+		# 	# vel_publisher.publish(velocity)
+		# 	# print('right')
+		# elif az < -0.5:
+		# 	# velocity.linear.x = 0
+		# 	velocity.angular.z = -0.5
+		# 	# vel_publisher.publish(velocity)
+		# 	# print('left')
 
 
 		# mode euler
 		yaw, pitch, roll = imu_list[0], imu_list[1], imu_list[2]
 		yaw, pitch, roll = float(yaw), float(pitch), float(roll)
 		
-		if yaw < 0:
+		if -120 < roll < -170:
 			velocity.linear.x = 0.5
-		elif yaw > 0:
+			rospy.loginfo('forward')
+		elif 150 < roll < 130:
+			velocity.linear.x = -0.5
+			rospy.loginfo('backward')
+		else:
 			velocity.linear.x = 0
+			rospy.loginfo('no linear')
 		
-		if pitch < 50:
+		if yaw < 50:
 			velocity.angular.z = 0.5
-		elif pitch > 110:
+			rospy.loginfo('right')
+		elif yaw > 110:
 			velocity.angular.z = -0.5
+			rospy.loginfo('left')
+		else:
+			velocity.angular.z = 0
+			rospy.loginfo('no angular')
 
 		# if roll > 0:
 		# 	velocity.angular.z = 0.5
