@@ -69,16 +69,16 @@ def main():
 		yaw, pitch, roll = imu_list[0], imu_list[1], imu_list[2]
 		yaw, pitch, roll = float(yaw), float(pitch), float(roll)
 		
-		rospy.loginfo(str(roll))
+		# rospy.loginfo(str(roll))
 		if -170 < roll < -120:
 			velocity.linear.x = 0.5
-			rospy.loginfo('forward')
+			# rospy.loginfo('forward')
 		elif 130 < roll < 150:
 			velocity.linear.x = -0.5
-			rospy.loginfo('backward')
+			# rospy.loginfo('backward')
 		else:
 			velocity.linear.x = 0
-			rospy.loginfo('no linear')
+			# rospy.loginfo('no linear')
 		
 		if 30< yaw < 50:
 			velocity.angular.z = 0.5
@@ -110,10 +110,10 @@ def main():
 		# rospy.loginfo(v_linear)
 		
 
-		# rospy.loginfo(imu_list)
+		rospy.loginfo(imu_list)
 		
 		#go to sleep!
-		#hz.sleep()
+		hz.sleep()
 
 if __name__ == "__main__":
 	try:
