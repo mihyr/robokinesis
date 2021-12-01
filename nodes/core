@@ -82,7 +82,7 @@ def main():
 		
 		# if 30< yaw < 50:
 		# 	velocity.angular.z = 0.5
-		# 	# rospy.loginfo('right')
+		# 	# rospy.loginfo('right')git
 		# elif 130> yaw > 110:
 		# 	velocity.angular.z = -0.5
 		# 	# rospy.loginfo('left')
@@ -120,10 +120,10 @@ def main():
 		# rospy.loginfo(v_linear)
 		
 
-		rospy.loginfo(imu_list)
+		# rospy.loginfo(imu_list)
 		
 		#go to sleep!
-		hz.sleep()
+		# hz.sleep()
 
 if __name__ == "__main__":
 	try:
