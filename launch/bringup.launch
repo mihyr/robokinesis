@@ -13,5 +13,6 @@
 
    <!--nodes-->
    <node name="core" pkg="robokinesis" type="core" output="screen"/>
+   
 
 </launch>
