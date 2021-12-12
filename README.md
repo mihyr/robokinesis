@@ -48,7 +48,6 @@ The diagram below shows the entire software architecture, along with hardware co
 - Create a catkin workspace
 
     ```
-    
     mkdir -p ~/catkin_ws/src
     cd ~/catkin_ws/src/
     ```
