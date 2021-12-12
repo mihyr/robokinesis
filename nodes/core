@@ -1,7 +1,10 @@
 #!/usr/bin/env python
+from typing_extensions import Unpack
 import rospy
 from geometry_msgs.msg import Twist, Vector3, Quaternion
 import subprocess
+from perceptron import predict_perceptron
+import numpy as np
 
 def execute(cmd):
 	popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
@@ -18,6 +21,9 @@ def main():
 	rospy.init_node('turtle_interpret', anonymous=True)
 	vel_publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
 	velocity=Twist()
+
+	# load trained model
+	model = np.load('config/model.yaml', Unpack=True)
 
 	#logerr msg to check if node is running
 	rospy.logerr("This is just a check for mover node, ignore me")
@@ -37,10 +43,22 @@ def main():
 		
 
 		# mode raw
-		# mx,my,mz,ax,ay,az,gx,gy,gz = imu_list
+		mx,my,mz,ax,ay,az,gx,gy,gz = imu_list
 		# print(type(mx))
-		# mx,my,mz,ax,ay,az,gx,gy,gz = float(mx),float(my),float(mz),float(ax),float(ay),float(az),float(gx),float(gy),float(gz)
+		mx,my,mz,ax,ay,az,gx,gy,gz = float(mx),float(my),float(mz),float(ax),float(ay),float(az),float(gx),float(gy),float(gz)
 		# print(type(mx))
+		
+		perceptron_predict,test_accuracy = predict_perceptron(imu_list,model)
+
+		velocity.linear.x = perceptron_predict[0]
+		velocity.linear.y = perceptron_predict[1]
+		velocity.linear.z = perceptron_predict[2]
+		velocity.angular.x = perceptron_predict[3]
+		velocity.angular.y = perceptron_predict[4]
+		velocity.angular.z = perceptron_predict[5]
+		vel_publisher.publish(velocity)
+
+		hz.sleep()
 
 		# rospy.loginfo('hello')
 		# if ax > 0.5:
@@ -65,30 +83,30 @@ def main():
 		# 	# print('left')
 
 
-		# mode euler
-		yaw, pitch, roll = imu_list[0], imu_list[1], imu_list[2]
-		yaw, pitch, roll = float(yaw), float(pitch), float(roll)
+		# # mode euler
+		# yaw, pitch, roll = imu_list[0], imu_list[1], imu_list[2]
+		# yaw, pitch, roll = float(yaw), float(pitch), float(roll)
 		
-		# rospy.loginfo(str(roll))
-		if -170 < roll < -100:
-			velocity.linear.x = 0.5
-			# rospy.loginfo('forward')
-		elif 90 < roll < 150:
-			velocity.linear.x = -0.5
-			# rospy.loginfo('backward')
-		else:
-			velocity.linear.x = 0
-			# rospy.loginfo('no linear')
+		# # rospy.loginfo(str(roll))
+		# if -170 < roll < -100:
+		# 	velocity.linear.x = 0.5
+		# 	# rospy.loginfo('forward')
+		# elif 90 < roll < 150:
+		# 	velocity.linear.x = -0.5
+		# 	# rospy.loginfo('backward')
+		# else:
+		# 	velocity.linear.x = 0
+		# 	# rospy.loginfo('no linear')
 		
-		if 30< yaw < 60:
-			velocity.angular.z = 1
-			# rospy.loginfo('right')git
-		elif 140> yaw > 110:
-			velocity.angular.z = -1
-			# rospy.loginfo('left')
-		else:
-			velocity.angular.z = 0
-			# rospy.loginfo('no angular')
+		# if 30< yaw < 60:
+		# 	velocity.angular.z = 1
+		# 	# rospy.loginfo('right')git
+		# elif 140> yaw > 110:
+		# 	velocity.angular.z = -1
+		# 	# rospy.loginfo('left')
+		# else:
+		# 	velocity.angular.z = 0
+		# 	# rospy.loginfo('no angular')
 
 		# if -150 < roll < -110:
 		# 	velocity.angular.z = 0.5
@@ -116,7 +134,7 @@ def main():
 		#cmd_vel loop: Update and Publish Velocity
 		# velocity.linear = Vector3(v_linear,0,0)
 		# velocity.angular = Vector3(0,0,v_angular)
-		vel_publisher.publish(velocity)
+		# vel_publisher.publish(velocity)
 		# rospy.loginfo(v_linear)
 		
 
